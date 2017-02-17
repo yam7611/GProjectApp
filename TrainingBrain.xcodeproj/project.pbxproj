@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		672BBC871E308FEB00DD178F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672BBC861E308FEB00DD178F /* MainViewController.swift */; };
-		672BBC891E31E7FA00DD178F /* AutoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672BBC881E31E7FA00DD178F /* AutoViewController.swift */; };
 		672BBC8B1E31F23D00DD178F /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672BBC8A1E31F23D00DD178F /* Parser.swift */; };
 		672BBC8D1E346D4300DD178F /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672BBC8C1E346D4300DD178F /* Data.swift */; };
 		672F61CE1E4A9BB700290AD3 /* Answers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F61CD1E4A9BB700290AD3 /* Answers.swift */; };
@@ -19,6 +18,7 @@
 		67806EE51E518D3E001028A8 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67806EE41E518D3E001028A8 /* SignUpViewController.swift */; };
 		67806EE71E52876A001028A8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67806EE61E52876A001028A8 /* User.swift */; };
 		67806EE91E52C592001028A8 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67806EE81E52C592001028A8 /* MenuViewController.swift */; };
+		678324711E56443B00D107E8 /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678324701E56443B00D107E8 /* QuestionViewController.swift */; };
 		67AB6F121E00B74C0050EC21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67AB6F111E00B74C0050EC21 /* AppDelegate.swift */; };
 		67AB6F141E00B74C0050EC21 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67AB6F131E00B74C0050EC21 /* ViewController.swift */; };
 		67AB6F191E00B74C0050EC21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67AB6F181E00B74C0050EC21 /* Assets.xcassets */; };
@@ -51,7 +51,6 @@
 		180324295CF52C0DA3EDD08A /* Pods-TrainingBrainUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrainingBrainUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TrainingBrainUITests/Pods-TrainingBrainUITests.release.xcconfig"; sourceTree = "<group>"; };
 		38F3A51E90BAC5D770C75DC2 /* Pods_TrainingBrain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrainingBrain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		672BBC861E308FEB00DD178F /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		672BBC881E31E7FA00DD178F /* AutoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoViewController.swift; sourceTree = "<group>"; };
 		672BBC8A1E31F23D00DD178F /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		672BBC8C1E346D4300DD178F /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		672F61CD1E4A9BB700290AD3 /* Answers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answers.swift; sourceTree = "<group>"; };
@@ -62,6 +61,7 @@
 		67806EE41E518D3E001028A8 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		67806EE61E52876A001028A8 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		67806EE81E52C592001028A8 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		678324701E56443B00D107E8 /* QuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionViewController.swift; sourceTree = "<group>"; };
 		6789501E1E2DE17B00946E24 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		67AB6F0E1E00B74C0050EC21 /* TrainingBrain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainingBrain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67AB6F111E00B74C0050EC21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -138,13 +138,13 @@
 			isa = PBXGroup;
 			children = (
 				673A224B1E517A6B009E167F /* Main.storyboard */,
+				678324701E56443B00D107E8 /* QuestionViewController.swift */,
 				673B33631E52E6B000BAF9E2 /* DetailViewController.swift */,
 				67806EE81E52C592001028A8 /* MenuViewController.swift */,
 				67806EE41E518D3E001028A8 /* SignUpViewController.swift */,
 				67806EE01E517CA8001028A8 /* HomeViewController.swift */,
 				67AB6F111E00B74C0050EC21 /* AppDelegate.swift */,
 				67AB6F131E00B74C0050EC21 /* ViewController.swift */,
-				672BBC881E31E7FA00DD178F /* AutoViewController.swift */,
 				672BBC8A1E31F23D00DD178F /* Parser.swift */,
 				672BBC8C1E346D4300DD178F /* Data.swift */,
 				672F61CD1E4A9BB700290AD3 /* Answers.swift */,
@@ -465,6 +465,7 @@
 			files = (
 				673B33641E52E6B000BAF9E2 /* DetailViewController.swift in Sources */,
 				67806EE31E518C41001028A8 /* LoginViewController.swift in Sources */,
+				678324711E56443B00D107E8 /* QuestionViewController.swift in Sources */,
 				672F61CE1E4A9BB700290AD3 /* Answers.swift in Sources */,
 				672BBC871E308FEB00DD178F /* MainViewController.swift in Sources */,
 				672BBC8D1E346D4300DD178F /* Data.swift in Sources */,
@@ -474,7 +475,6 @@
 				67806EE91E52C592001028A8 /* MenuViewController.swift in Sources */,
 				672BBC8B1E31F23D00DD178F /* Parser.swift in Sources */,
 				67AB6F121E00B74C0050EC21 /* AppDelegate.swift in Sources */,
-				672BBC891E31E7FA00DD178F /* AutoViewController.swift in Sources */,
 				67806EE71E52876A001028A8 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

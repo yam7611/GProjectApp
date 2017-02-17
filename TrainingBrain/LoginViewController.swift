@@ -36,7 +36,7 @@ class LoginViewController: UIViewController {
             return
         }
         
-        Alamofire.request(.POST,"https://obscure-sierra-33935.herokuapp.com/todo/",parameters: ["account":accountText,"password":passwordText]).responseJSON{ response in
+        Alamofire.request(.POST,"https://obscure-sierra-33935.herokuapp.com/api/todo/",parameters: ["account":accountText,"password":passwordText]).responseJSON{ response in
             if let JSON = response.result.value{
                 self.tempDict = JSON as? NSMutableDictionary
                 if self.tempDict!["name"]! as! String != "null"{

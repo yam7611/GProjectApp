@@ -39,7 +39,7 @@ class SignUpViewController: UIViewController {
             
             
             
-            Alamofire.request(.POST,"https://obscure-sierra-33935.herokuapp.com/signUp",parameters: ["account": accountText,"password":passwordText,"name":nameText]).responseJSON{response in
+            Alamofire.request(.POST,"https://obscure-sierra-33935.herokuapp.com/api/signUp",parameters: ["account": accountText,"password":passwordText,"name":nameText]).responseJSON{response in
             
             print(response.request)
             print(response.response)

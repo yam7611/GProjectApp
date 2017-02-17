@@ -26,28 +26,28 @@ class Parser :NSObject{
     
     var counterNumber = 0
     
-    func parseJSON(url:String) -> Data{
+    func parseJSON(url:String,visualRoot:String,auditoryRoot:String) -> Data{
     
         
         let data = Data()
     
-        if let urlForParsing = NSURL(string: url+"/api/trials/chinese-characters-session-1"){
+        if let urlForParsing = NSURL(string: url){
             
             if let JSONData = NSData(contentsOfURL:urlForParsing){
                 let json = JSON(data:JSONData)
                 
-                let imageRoot = json["visualStimulusRoot"]
+                let imageRoot = visualRoot
 
-                let soundRoot = json["auditoryStimulusRoot"]
+                let soundRoot = auditoryRoot
 
-                for i in 0...json["stimulusPairs"].count{
-                    let imageFileName = json["stimulusPairs"][i]["visualStimulusFilename"]
+                for i in 0...json["trialSpecifications"].count{
+                    let imageFileName = json["trialSpecifications"][i]["visualStimulusFilename"]
                     
-                    let soundFileName = json["stimulusPairs"][i]["auditoryStimulusFilename"]
+                    let soundFileName = json["trialSpecifications"][i]["auditoryStimulusFilename"]
                     
-                    let imageURLString = url  + imageRoot.stringValue + "/" + imageFileName.stringValue
+                    let imageURLString = visualRoot + "/" + imageFileName.stringValue
                     
-                    let soundURLString = url  + soundRoot.stringValue + "/" + soundFileName.stringValue
+                    let soundURLString = auditoryRoot + "/" + soundFileName.stringValue
                     
                     data.setPic(NSURL(fileURLWithPath:imageURLString))
                     data.setSound(NSURL(fileURLWithPath:soundURLString))
