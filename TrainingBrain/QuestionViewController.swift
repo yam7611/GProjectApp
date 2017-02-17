@@ -48,15 +48,16 @@ class QuestionViewController: UIViewController {
     
     var auditoryStimulusRoot:String? = ""
     var visualStimulusRoot:String? = ""
-    var auditoryStimulusDurationInSeconds:String? = ""
-    var visualStimulusDurationInSeconds:String? = ""
-    var timeoutNoticeDurationInSeconds:String? = ""
-    var responseWindowInSeconds:String? = ""
-    var interTrialIntervalInSeconds:String? = ""
+    var auditoryStimulusDurationInSeconds:Float? = 0.0
+    var visualStimulusDurationInSeconds:Float? = 0.0
+    var timeoutNoticeDurationInSeconds:Float? = 0.0
+    var responseWindowInSeconds:Float? = 0.0
+    var interTrialIntervalInSeconds:Float? = 0.0
     var links:NSDictionary? = [String:AnyObject]()
     
     var NUMBER_OF_TEST = 0
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     @IBOutlet weak var matchBtn: UIButton!
     @IBOutlet weak var unmatchBtn: UIButton!
@@ -66,8 +67,10 @@ class QuestionViewController: UIViewController {
         didSet{
             let soundURL = data.getSoundsLocation(counter-1)
             
-            matchBtn.hidden = true
-            unmatchBtn.hidden = true
+            //matchBtn.hidden = true
+            //unmatchBtn.hidden = true
+            matchBtn.enabled = false
+            unmatchBtn.enabled = false
             
             print("duration is:\(duration),ans is:\(tempAns)")
             
@@ -94,15 +97,20 @@ class QuestionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.matchBtn.hidden = true
-        self.unmatchBtn.hidden = true
+        timerForCountingResponse = NSTimer.scheduledTimerWithTimeInterval(0.0, target: self, selector: #selector(startCounting(_:)), userInfo: nil, repeats: false)
         
-        currentDate = NSDate()
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        covertedDate = dateFormatter.stringFromDate(currentDate!)
+
+        //self.matchBtn.hidden = true
+        //self.unmatchBtn.hidden = true
+        matchBtn.enabled = false
+        unmatchBtn.enabled = false
         
-        print("the date and time is:\(covertedDate)")
+        
+        //let dateFormatter = NSDateFormatter()
+        //dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        //covertedDate = dateFormatter.stringFromDate(currentDate!)
+        
+       // print("the date and time is:\(covertedDate)")
         
         if counter < data.countNumberOfElement() - 1 {
             timer = NSTimer.scheduledTimerWithTimeInterval(6.0, target: self, selector: #selector(changeQuestion(_:)), userInfo: nil, repeats: true)
@@ -148,32 +156,41 @@ class QuestionViewController: UIViewController {
             auditoryStimulusRoot = rootURL + auditoryStimulusRoot!
             visualStimulusRoot = dict["visualStimulusRoot"] as? String
             visualStimulusRoot = rootURL + visualStimulusRoot!
-            auditoryStimulusDurationInSeconds = dict["auditoryStimulusDurationInSeconds"] as? String
-            visualStimulusDurationInSeconds = dict["visualStimulusDurationInSeconds"] as? String
-            timeoutNoticeDurationInSeconds = dict["timeoutNoticeDurationInSeconds"] as? String
-            responseWindowInSeconds = dict["responseWindowInSeconds"] as? String
-            interTrialIntervalInSeconds = dict["interTrialIntervalInSeconds"] as? String
+            auditoryStimulusDurationInSeconds = dict["auditoryStimulusDurationInSeconds"] as? Float
+            visualStimulusDurationInSeconds = dict["visualStimulusDurationInSeconds"] as? Float
+            timeoutNoticeDurationInSeconds = dict["timeoutNoticeDurationInSeconds"] as? Float
+            responseWindowInSeconds = dict["responseWindowInSeconds"] as? Float
+            interTrialIntervalInSeconds = dict["interTrialIntervalInSeconds"] as? Float
+            
             links = dict["_links"] as? NSDictionary
             linkDict = links!["generateTrialSpecifications"] as? NSDictionary
             link = linkDict!["href"] as? String
             print("the link is\(link!)")
-            self.data = parser.parseJSON(link!,visualRoot: visualStimulusRoot!,auditoryRoot: auditoryStimulusRoot!)
-            self.NUMBER_OF_TEST = self.data.countNumberOfSound()
             
+            dispatch_async(dispatch_get_main_queue(), {
+                self.spinner.startAnimating()
+            })
+            
+            self.data = parser.parseJSON(link!,visualRoot: visualStimulusRoot!,auditoryRoot: auditoryStimulusRoot!)
+            
+            self.NUMBER_OF_TEST = self.data.countNumberOfSound()
+            print("current number of question :\(self.NUMBER_OF_TEST)")
         }
     }
     
     func displayBtn(notificaiton:NSNotificationCenter){
-        self.matchBtn.hidden = false
-        self.unmatchBtn.hidden = false
+       // self.matchBtn.hidden = false
+        //self.unmatchBtn.hidden = false
+        matchBtn.enabled = true
+        unmatchBtn.enabled = true
         
-        timerForCountingResponse = NSTimer.scheduledTimerWithTimeInterval(0.0, target: self, selector: #selector(startCounting(_:)), userInfo: nil, repeats: false)
-        
-    }
+        self.imgView.image = nil
+           }
     
     func removeBtn(notification:NSNotificationCenter){
-        self.matchBtn.hidden = true
-        self.unmatchBtn.hidden = true
+        self.matchBtn.enabled = false
+        self.unmatchBtn.enabled = false
+        
         
     }
     
@@ -186,6 +203,10 @@ class QuestionViewController: UIViewController {
         
         if counter < NUMBER_OF_TEST {
             counter += 1
+            if counter == 1{
+                self.spinner.stopAnimating()
+                currentDate = NSDate()
+            }
             print("current item number:\(counter)")
         } else {
             endTime = NSDate()
@@ -197,6 +218,9 @@ class QuestionViewController: UIViewController {
             
             print("task finished")
             
+            let endT = endTime?.timeIntervalSince1970
+            let startT = currentDate?.timeIntervalSince1970
+            print("end time is:\(endT! - startT!)")
         }
     }
     
@@ -204,7 +228,7 @@ class QuestionViewController: UIViewController {
         
         startAnsTiming = NSDate()
         
-        //print(startAnsTiming?.timeIntervalSince1970.description)
+        print(startAnsTiming?.timeIntervalSince1970.description)
     }
     
     func writeToJSON(){

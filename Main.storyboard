@@ -484,12 +484,17 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="vqx-mg-RbV">
+                                <rect key="frame" x="290" y="280" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="MDH-8c-h48" firstAttribute="top" secondItem="VpN-Qj-mw3" secondAttribute="bottom" constant="28" id="7De-Ti-x7m"/>
                             <constraint firstItem="Ivk-D0-0uf" firstAttribute="centerY" secondItem="4hb-bk-S4I" secondAttribute="centerY" constant="-207.5" id="Axy-NO-2JT"/>
                             <constraint firstItem="MDH-8c-h48" firstAttribute="trailing" secondItem="VpN-Qj-mw3" secondAttribute="trailing" id="Bdx-Xl-cGS"/>
+                            <constraint firstItem="vqx-mg-RbV" firstAttribute="centerY" secondItem="VpN-Qj-mw3" secondAttribute="centerY" id="UZL-lG-tYd"/>
+                            <constraint firstItem="vqx-mg-RbV" firstAttribute="centerX" secondItem="VpN-Qj-mw3" secondAttribute="centerX" id="a4b-VI-KmF"/>
                             <constraint firstItem="VpN-Qj-mw3" firstAttribute="centerX" secondItem="4hb-bk-S4I" secondAttribute="centerX" id="h96-a1-eSG"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Ivk-D0-0uf" secondAttribute="leading" id="hlh-ph-7iY"/>
                             <constraint firstItem="VpN-Qj-mw3" firstAttribute="top" secondItem="cP3-Av-RIJ" secondAttribute="bottom" constant="85" id="l8X-K1-dPq"/>
@@ -500,6 +505,7 @@
                     <connections>
                         <outlet property="imgView" destination="VpN-Qj-mw3" id="jfz-i0-ohA"/>
                         <outlet property="matchBtn" destination="EIn-uu-xWh" id="0jz-Mg-hyF"/>
+                        <outlet property="spinner" destination="vqx-mg-RbV" id="8EZ-OW-NEs"/>
                         <outlet property="unmatchBtn" destination="MDH-8c-h48" id="EQN-5P-0mv"/>
                     </connections>
                 </viewController>

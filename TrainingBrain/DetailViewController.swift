@@ -24,28 +24,6 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        let dictionary = data as? NSDictionary
-        let linkArray = dictionary!["links"]! as? NSArray
-        let linkInfo = linkArray![1] as? NSDictionary
-        let link = linkInfo!["href"]
-        //print("the content recived from prev vc is:\(link!)")
-        
-        Alamofire.request(.GET,"\(link!)").responseJSON{response in
-            
-            if let JSON = response.result.value{
-                //print("JSON:\(JSON)")
-                if let dict = JSON as? NSDictionary{
-                    //print("the links are:\(dict["_links"])")
-                    
-                    self.linkDict = dict["_links"] as? NSDictionary
-                    //print("thr first link is\(self.linkDict?["blockSpecification"])")
-                    if let url = self.linkDict?["blockSpecification"] as? NSDictionary{
-                        self.fetchQuestionDetail(url["href"] as? String)
-                    }
-                }
-            }
-            
-        }
     }
     
     func fetchQuestionDetail(urlString:String?){
@@ -63,6 +41,7 @@ class DetailViewController: UIViewController {
                         self.soundRoot = quesitonDict["auditoryStimulusRoot"] as? String
                         self.soundRoot = self.url + self.soundRoot!
                         //print(self.soundRoot)
+                        self.performSegueWithIdentifier("segueToDetailQuestion", sender: self.blockDetailDict)
                         
                     }
                 }
@@ -71,7 +50,43 @@ class DetailViewController: UIViewController {
         //print("root is:\(self.visualRoot)")
     }
     @IBAction func pressBlock(sender: UIButton) {
-        self.performSegueWithIdentifier("segueToDetailQuestion", sender: self.blockDetailDict)
+        
+        var sessionNumber = 0
+        let btnId = sender.accessibilityLabel
+        
+        if btnId?.containsString("-1") == true{
+            sessionNumber = 1
+        } else if btnId?.containsString("-2") == true {
+            sessionNumber = 2
+        } else {
+             sessionNumber = 3
+        }
+        
+        let dictionary = data as? NSDictionary
+        let linkArray = dictionary!["links"]! as? NSArray
+        let linkInfo = linkArray![sessionNumber] as? NSDictionary
+        let link = linkInfo!["href"]
+        //print("the content recived from prev vc is:\(link!)")
+        
+        Alamofire.request(.GET,"\(link!)").responseJSON{response in
+            
+            if let JSON = response.result.value{
+                //print("JSON:\(JSON)")
+                if let dict = JSON as? NSDictionary{
+                    //print("the links are:\(dict["_links"])")
+                    
+                    self.linkDict = dict["_links"] as? NSDictionary
+                    //print("thr first link is\(self.linkDict?["blockSpecification"])")
+                    if let url = self.linkDict?["blockSpecification"] as? NSDictionary{
+                        self.fetchQuestionDetail(url["href"] as? String)
+                        
+                    }
+                }
+            }
+            
+        }
+
+       
             //buttonId =
         
     }
