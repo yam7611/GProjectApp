@@ -55,6 +55,13 @@ class QuestionViewController: UIViewController {
     var interTrialIntervalInSeconds:Float? = 0.0
     var links:NSDictionary? = [String:AnyObject]()
     
+    
+    let blockNames = ["bst1-1","bst1-2","bst1-3","bst2-1","bst2-2","bst2-3","bst3-1","bst3-2","bst3-3","bst4-1","bst4-2","bst4-3","bst5-1","bst5-2","bst5-3","bs-1","bs-2","bs-3","bs-4","bs-5","mc-1","mc-2","mc-3","mc-4","mc-5","mct-1","mct-2","mct-3"]
+    
+    var correctedAns = []
+    
+    var currentBlock = ""
+    
     var NUMBER_OF_TEST = 0
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
@@ -175,6 +182,13 @@ class QuestionViewController: UIViewController {
             
             self.NUMBER_OF_TEST = self.data.countNumberOfSound()
             print("current number of question :\(self.NUMBER_OF_TEST)")
+            
+            for i in 0...self.blockNames.count - 1{
+                
+                if link!.containsString(self.blockNames[i]){
+                    currentBlock = self.blockNames[i]
+                }
+            }
         }
     }
     
@@ -201,13 +215,14 @@ class QuestionViewController: UIViewController {
     
     func changeQuestion(notification:NSNotificationCenter){
         
-        if counter < NUMBER_OF_TEST {
+        if counter < NUMBER_OF_TEST - 1 {
             counter += 1
             if counter == 1{
                 self.spinner.stopAnimating()
                 currentDate = NSDate()
             }
             print("current item number:\(counter)")
+            print("corrected ans is:\(data.getCorrectedAns(counter))")
         } else {
             endTime = NSDate()
             let dateFormatter = NSDateFormatter()
@@ -236,17 +251,28 @@ class QuestionViewController: UIViewController {
         var json:JSON
         var jsonArray = [JSON]()
         
-        json = ["trialID":"Chinese-characters-test","startedAt":"\(currentDate!)","completedAt":"\(convertedEndTime!)","stimulusResponses":""]
+        json = ["block":"\(currentBlock)","start_time":"\(currentDate!)","completedAt":"\(convertedEndTime!)","end_time":""]
         
         var innerLayerOfJSON :JSON?
         
-        for i in 0...NUMBER_OF_TEST-1{
-            innerLayerOfJSON = ["auditoryStimulusFilename":data.getSoundFileName(i),"visualStimulusFilename":data.getPicsFileName(i),"responseTime":"\(answers[i].0)","reponse":"\(answers[i].1)"]
+        for i in 0...NUMBER_OF_TEST-2{
+            innerLayerOfJSON = ["auditoryStimulusFilename":data.getSoundFileName(i),"visualStimulusFilename":data.getPicsFileName(i),"responseTimeSeconds":"\(answers[i].0)","reponse":"\(answers[i].1)"]
             jsonArray.append(innerLayerOfJSON!)
         }
         json["stimulusResponses"].string = "\(jsonArray)"
         
         print("the json data is :\(json.description)")
+        
+        let jsonParams:[String:AnyObject]? = json as? [String:AnyObject]
+
+        
+        Alamofire.request(.POST,"https://obscure-sierra-33935.herokuapp.com/api/uploadRecord", parameters:["block":"\(self.currentBlock)","start_time":"\(self.currentDate!)","end_time":"\(self.convertedEndTime!)"]).responseJSON{
+            response in
+            
+            if let JSON = response.result.value{
+                print("JSON:\(JSON)")
+            }
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {

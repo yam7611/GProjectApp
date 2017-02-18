@@ -19,6 +19,11 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var repasswordTextField: UITextField!
     
     @IBOutlet weak var nameTextField: UITextField!
+    
+    
+    var tempDict :NSMutableDictionary?
+    var user = User()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -48,12 +53,38 @@ class SignUpViewController: UIViewController {
                 
                 if let JSON = response.result.value{
                     print("JSON:\(JSON)")
+                    
+                    self.tempDict = JSON as? NSMutableDictionary
+                    if self.tempDict!["name"]! as! String != "null"{
+                        
+                        self.user.name = self.tempDict!["name"]! as! String
+                        self.user.account = self.tempDict!["account"]! as! String
+                        self.performSegueWithIdentifier("segueToMenu", sender: self.user)
+                    } else {
+                        print("wrong password")
+                    }
+
                 }
             }
         }
         
        
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        print("user's name is :\(self.user.name)")
+        
+        
+        if let dvc = segue.destinationViewController as? MenuViewController{
+            
+            dvc.user = sender as? User
+            
+        }
+        
+        
+    }
+
+    
 
     /*
     // MARK: - Navigation

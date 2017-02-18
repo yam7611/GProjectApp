@@ -58,6 +58,8 @@ class Parser :NSObject{
                     
                     soundData = NSData(contentsOfURL: NSURL(string:soundURLString)!)
                     photoData = NSData(contentsOfURL: NSURL(string:imageURLString)!)
+                    
+                    
                     let imageDestination = fetchDocumentPath().URLByAppendingPathComponent("\(counterNumber).jpeg")
                     
                     let soundDestination = fetchDocumentPath().URLByAppendingPathComponent("\(counterNumber).mp3")
@@ -65,6 +67,19 @@ class Parser :NSObject{
                     
                     data.setPicLocation(imageDestination)
                     data.setSoundLocation(soundDestination)
+                    
+                    let imgString = imageFileName.description.stringByReplacingOccurrencesOfString(".png", withString: "")
+                    
+                    let soundString = soundFileName.description.stringByReplacingOccurrencesOfString(".mp3", withString: "")
+                    
+                    print("imgString:\(imgString),soundString:\(soundString)")
+                    
+                    if imgString == soundString{
+                      data.setCorrectedAns("MATCH")
+                    } else {
+                       data.setCorrectedAns("NOT_MATCH") 
+                    }
+                    
                     
                    _ = try? soundData?.writeToURL(soundDestination, options: .DataWritingFileProtectionComplete)
                     

@@ -17,6 +17,7 @@ class Data{
     private var soundsLocation:[NSURL] = []
     private var soundFileName :[String] = []
     private var picsFileName:[String] = []
+    private var correctedAns:NSMutableArray = []
     
     init(){
         
@@ -55,6 +56,12 @@ class Data{
     }
 
     
+    func setCorrectedAns(string:String){
+        self.correctedAns.addObject(string)
+    }
+    func getCorrectedAns(index:Int)-> String{
+        return self.correctedAns[index] as! String
+    }
     
     func countNumberOfElement() ->Int{
         return pics.count
