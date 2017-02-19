@@ -13,6 +13,9 @@
 		672F61CE1E4A9BB700290AD3 /* Answers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F61CD1E4A9BB700290AD3 /* Answers.swift */; };
 		673A224C1E517A6B009E167F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 673A224B1E517A6B009E167F /* Main.storyboard */; };
 		673B33641E52E6B000BAF9E2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673B33631E52E6B000BAF9E2 /* DetailViewController.swift */; };
+		67551D9E1E5946460054EB16 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67551D9D1E5946460054EB16 /* HistoryViewController.swift */; };
+		67551DA01E59566B0054EB16 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67551D9F1E59566B0054EB16 /* Record.swift */; };
+		677C54921E5972C00040BCE2 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677C54911E5972C00040BCE2 /* RecordViewController.swift */; };
 		67806EE11E517CA8001028A8 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67806EE01E517CA8001028A8 /* HomeViewController.swift */; };
 		67806EE31E518C41001028A8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67806EE21E518C41001028A8 /* LoginViewController.swift */; };
 		67806EE51E518D3E001028A8 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67806EE41E518D3E001028A8 /* SignUpViewController.swift */; };
@@ -56,6 +59,9 @@
 		672F61CD1E4A9BB700290AD3 /* Answers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answers.swift; sourceTree = "<group>"; };
 		673A224B1E517A6B009E167F /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../Main.storyboard; sourceTree = "<group>"; };
 		673B33631E52E6B000BAF9E2 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		67551D9D1E5946460054EB16 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		67551D9F1E59566B0054EB16 /* Record.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
+		677C54911E5972C00040BCE2 /* RecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
 		67806EE01E517CA8001028A8 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		67806EE21E518C41001028A8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		67806EE41E518D3E001028A8 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +144,9 @@
 			isa = PBXGroup;
 			children = (
 				673A224B1E517A6B009E167F /* Main.storyboard */,
+				67551D9D1E5946460054EB16 /* HistoryViewController.swift */,
+				677C54911E5972C00040BCE2 /* RecordViewController.swift */,
+				67551D9F1E59566B0054EB16 /* Record.swift */,
 				678324701E56443B00D107E8 /* QuestionViewController.swift */,
 				673B33631E52E6B000BAF9E2 /* DetailViewController.swift */,
 				67806EE81E52C592001028A8 /* MenuViewController.swift */,
@@ -465,9 +474,12 @@
 			files = (
 				673B33641E52E6B000BAF9E2 /* DetailViewController.swift in Sources */,
 				67806EE31E518C41001028A8 /* LoginViewController.swift in Sources */,
+				67551DA01E59566B0054EB16 /* Record.swift in Sources */,
+				677C54921E5972C00040BCE2 /* RecordViewController.swift in Sources */,
 				678324711E56443B00D107E8 /* QuestionViewController.swift in Sources */,
 				672F61CE1E4A9BB700290AD3 /* Answers.swift in Sources */,
 				672BBC871E308FEB00DD178F /* MainViewController.swift in Sources */,
+				67551D9E1E5946460054EB16 /* HistoryViewController.swift in Sources */,
 				672BBC8D1E346D4300DD178F /* Data.swift in Sources */,
 				67806EE51E518D3E001028A8 /* SignUpViewController.swift in Sources */,
 				67806EE11E517CA8001028A8 /* HomeViewController.swift in Sources */,

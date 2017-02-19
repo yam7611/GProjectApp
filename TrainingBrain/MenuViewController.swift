@@ -10,7 +10,11 @@ import UIKit
 import Alamofire
 
 class MenuViewController: UIViewController {
-    var user: User?
+    var user: User?{
+        didSet{
+            print("user account is:\(user?.account)")
+        }
+    }
     
     
     @IBOutlet weak var greetingLabel: UILabel!
@@ -22,14 +26,26 @@ class MenuViewController: UIViewController {
     
     @IBAction func pressSession(sender: UIButton) {
         
-        //print(sender.titleLabel)
+       // print(sender.titleLabel)
+        
+//        if let user1 = user{
+//           
+//        
+//        }
+        
         let number = Int(sender.accessibilityLabel!)
+        
         self.performSegueWithIdentifier("segueToDetail", sender: array[number!])
-      
+        
+    
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.postNotificationName("userInfo123", object: nil, userInfo: ["user":"123"])
+        
         
         self.greetingLabel.text = "Welcome back,\((user?.name)!) \n Please select the session below"
         
@@ -50,8 +66,9 @@ class MenuViewController: UIViewController {
         guard let destinationVC = dvc else {
             return
         }
-        destinationVC.data = sender
         
+        destinationVC.data = sender
+       
     }
     
     

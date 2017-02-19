@@ -13,6 +13,12 @@ import SwiftyJSON
 class DetailViewController: UIViewController {
 
     var data:AnyObject?
+    
+    var user:User?{
+        didSet{
+            print("user name is:\(user?.name)")
+        }
+    }
     var dictionary = [String:AnyObject]()
     var linkDict:NSDictionary? = [String:AnyObject]()
     var buttonId = ""
@@ -22,6 +28,10 @@ class DetailViewController: UIViewController {
     var blockDetailDict:NSDictionary? = [String:AnyObject]()
     
     override func viewDidLoad() {
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.addObserver(self, selector: #selector(getInfo(_:)), name: "userInfo123", object: nil)
+        
+        
         super.viewDidLoad()
        
     }
@@ -48,6 +58,15 @@ class DetailViewController: UIViewController {
             }
         }
         //print("root is:\(self.visualRoot)")
+    }
+    
+    func getInfo(notification:NSNotification){
+        print("go to GOINFO")
+        if let userInfo = notification.userInfo{
+            if let st1 = userInfo["user"] as? String{
+                print("user's name is \(st1)")
+            }
+        }
     }
     @IBAction func pressBlock(sender: UIButton) {
         
@@ -85,8 +104,6 @@ class DetailViewController: UIViewController {
             }
             
         }
-
-       
             //buttonId =
         
     }

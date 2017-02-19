@@ -20,6 +20,7 @@ class QuestionViewController: UIViewController {
     let parser = Parser()
     let rootURL = "http://115.146.91.233/"
     var data = Data()
+    var user = User()
     var player : AVAudioPlayer?
     var timerForVisual = NSTimer()
     
@@ -102,6 +103,9 @@ class QuestionViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(gotUserInfo(_:)), name: "userInfo", object: nil)
+        
         super.viewDidLoad()
         
         timerForCountingResponse = NSTimer.scheduledTimerWithTimeInterval(0.0, target: self, selector: #selector(startCounting(_:)), userInfo: nil, repeats: false)
@@ -113,9 +117,7 @@ class QuestionViewController: UIViewController {
         unmatchBtn.enabled = false
         
         
-        //let dateFormatter = NSDateFormatter()
-        //dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        //covertedDate = dateFormatter.stringFromDate(currentDate!)
+        
         
        // print("the date and time is:\(covertedDate)")
         
@@ -129,7 +131,15 @@ class QuestionViewController: UIViewController {
     }
     
     
-    
+    func gotUserInfo(notification:NSNotification){
+        print("go to oberser!!!")
+        if let userInfo = notification.userInfo {
+            if let user = userInfo["user"] as? User{
+                self.user = user
+                print("\(self.user)")
+            }
+        }
+    }
     
     @IBAction func pressMatch(sender: UIButton) {
         pressTime = NSDate()
@@ -220,9 +230,12 @@ class QuestionViewController: UIViewController {
             if counter == 1{
                 self.spinner.stopAnimating()
                 currentDate = NSDate()
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                covertedDate = dateFormatter.stringFromDate(currentDate!)
             }
             print("current item number:\(counter)")
-            print("corrected ans is:\(data.getCorrectedAns(counter))")
+           // print("corrected ans is:\(data.getCorrectedAns(counter))")
         } else {
             endTime = NSDate()
             let dateFormatter = NSDateFormatter()
@@ -255,18 +268,28 @@ class QuestionViewController: UIViewController {
         
         var innerLayerOfJSON :JSON?
         
+        
+        var point = 0.0
         for i in 0...NUMBER_OF_TEST-2{
-            innerLayerOfJSON = ["auditoryStimulusFilename":data.getSoundFileName(i),"visualStimulusFilename":data.getPicsFileName(i),"responseTimeSeconds":"\(answers[i].0)","reponse":"\(answers[i].1)"]
+            if answers[i].1 == data.getCorrectedAns(i) {
+                point += 1.0
+            }
+            print("your ans:\( answers[i].1),and the right one is:\(data.getCorrectedAns(i) )")
+            innerLayerOfJSON =
+                            ["auditoryStimulusFilename":data.getSoundFileName(i),"visualStimulusFilename":data.getPicsFileName(i),"responseTimeSeconds":"\(answers[i].0)","reponse":"\(answers[i].1)"]
             jsonArray.append(innerLayerOfJSON!)
         }
+        
+        
+        
         json["stimulusResponses"].string = "\(jsonArray)"
         
-        print("the json data is :\(json.description)")
+        //print("the json data is :\(json.description)")
         
         let jsonParams:[String:AnyObject]? = json as? [String:AnyObject]
 
         
-        Alamofire.request(.POST,"https://obscure-sierra-33935.herokuapp.com/api/uploadRecord", parameters:["block":"\(self.currentBlock)","start_time":"\(self.currentDate!)","end_time":"\(self.convertedEndTime!)"]).responseJSON{
+        Alamofire.request(.POST,"https://obscure-sierra-33935.herokuapp.com/api/uploadRecord", parameters:["block":"\(self.currentBlock)","start_time":"\(self.covertedDate!)","end_time":"\(self.convertedEndTime!)","ratio":"\(point/Double(NUMBER_OF_TEST))","account":"yam7611"]).responseJSON{
             response in
             
             if let JSON = response.result.value{
@@ -284,6 +307,5 @@ class QuestionViewController: UIViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
     }
 }

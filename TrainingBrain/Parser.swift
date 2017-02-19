@@ -72,8 +72,6 @@ class Parser :NSObject{
                     
                     let soundString = soundFileName.description.stringByReplacingOccurrencesOfString(".mp3", withString: "")
                     
-                    print("imgString:\(imgString),soundString:\(soundString)")
-                    
                     if imgString == soundString{
                       data.setCorrectedAns("MATCH")
                     } else {
