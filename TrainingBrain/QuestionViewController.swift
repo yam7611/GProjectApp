@@ -55,6 +55,7 @@ class QuestionViewController: UIViewController {
     var responseWindowInSeconds:Float? = 0.0
     var interTrialIntervalInSeconds:Float? = 0.0
     var links:NSDictionary? = [String:AnyObject]()
+    var textForDenotingDownloading = UILabel()
     
     
     let blockNames = ["bst1-1","bst1-2","bst1-3","bst2-1","bst2-2","bst2-3","bst3-1","bst3-2","bst3-3","bst4-1","bst4-2","bst4-3","bst5-1","bst5-2","bst5-3","bs-1","bs-2","bs-3","bs-4","bs-5","mc-1","mc-2","mc-3","mc-4","mc-5","mct-1","mct-2","mct-3"]
@@ -115,9 +116,6 @@ class QuestionViewController: UIViewController {
         //self.unmatchBtn.hidden = true
         matchBtn.enabled = false
         unmatchBtn.enabled = false
-        
-        
-        
         
        // print("the date and time is:\(covertedDate)")
         
@@ -186,6 +184,19 @@ class QuestionViewController: UIViewController {
             
             dispatch_async(dispatch_get_main_queue(), {
                 self.spinner.startAnimating()
+                
+                self.view.addSubview(self.textForDenotingDownloading)
+               
+                self.textForDenotingDownloading.translatesAutoresizingMaskIntoConstraints = false
+                self.textForDenotingDownloading.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
+                self.textForDenotingDownloading.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor, constant: -60).active = true
+                
+                self.textForDenotingDownloading.text = "Please wait while content is downloading..."
+                self.textForDenotingDownloading.sizeToFit()
+                self.textForDenotingDownloading.adjustsFontSizeToFitWidth = true
+                self.textForDenotingDownloading.textColor = UIColor.blackColor()
+                
+                
             })
             
             self.data = parser.parseJSON(link!,visualRoot: visualStimulusRoot!,auditoryRoot: auditoryStimulusRoot!)
@@ -229,6 +240,8 @@ class QuestionViewController: UIViewController {
             counter += 1
             if counter == 1{
                 self.spinner.stopAnimating()
+                
+                self.textForDenotingDownloading.removeFromSuperview()
                 currentDate = NSDate()
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"

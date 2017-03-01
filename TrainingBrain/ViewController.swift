@@ -72,13 +72,10 @@ class ViewController: UIViewController {
             print(response.request)
             print(response.response)
             print(response.data)
-            print(response.result)
-            
-            if let JSON = response.result.value{
-                print("JSON:\(JSON)")
-            }
+            //print(response.result)
+           
         }
-//        
+//
 //        if let usrString = NSURL(string: url+"/api/trials/chinese-characters-session-1"){
 //            if let data = NSData(contentsOfURL: usrString){
 //                let json = JSON(data:data)

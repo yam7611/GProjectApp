@@ -43,7 +43,12 @@ class LoginViewController: UIViewController {
                     
                     self.user.name = self.tempDict!["name"]! as! String
                     self.user.account = self.tempDict!["account"]! as! String
-                    self.performSegueWithIdentifier("segueToMenu", sender: self.user)
+                    print("username:\(self.user.name)")
+                    
+                    self.performSegueWithIdentifier("segueToMenu", sender: nil)
+                    NSNotificationCenter.defaultCenter().postNotificationName("passUserInfo", object: nil, userInfo: ["user":self.user])
+                    
+                    
                 } else {
                     print("wrong password")
                 }
@@ -54,12 +59,12 @@ class LoginViewController: UIViewController {
     
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        print("user's name is :\(self.user.name)")
+        //print("user's name is :\(self.user.name)")
         
         
         if let dvc = segue.destinationViewController as? MenuViewController{
             
-            dvc.user = sender as? User
+           // dvc.user = sender as? User
            
         }
         

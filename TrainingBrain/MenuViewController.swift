@@ -10,13 +10,7 @@ import UIKit
 import Alamofire
 
 class MenuViewController: UIViewController {
-    var user: User?{
-        didSet{
-            print("user account is:\(user?.account)")
-        }
-    }
-    
-    
+    var user: User?
     @IBOutlet weak var greetingLabel: UILabel!
     
     @IBOutlet var buttons: [UIButton]!
@@ -25,34 +19,38 @@ class MenuViewController: UIViewController {
     
     
     @IBAction func pressSession(sender: UIButton) {
-        
-       // print(sender.titleLabel)
-        
-//        if let user1 = user{
-//           
-//        
-//        }
+    
         
         let number = Int(sender.accessibilityLabel!)
         
         self.performSegueWithIdentifier("segueToDetail", sender: array[number!])
         
+        NSNotificationCenter.defaultCenter().postNotificationName("passUserInfo", object: nil, userInfo: ["user":self.user!])
     
     }
     
     override func viewDidLoad() {
+        
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(parseUserInfo(_:)), name: "passUserInfo", object: nil)
         super.viewDidLoad()
-        
-        let nc = NSNotificationCenter.defaultCenter()
-        nc.postNotificationName("userInfo123", object: nil, userInfo: ["user":"123"])
-        
-        
-        self.greetingLabel.text = "Welcome back,\((user?.name)!) \n Please select the session below"
         
         Alamofire.request(.GET,"http://115.146.91.233/api/task-specifications").responseJSON{response in
             
             if let JSON = response.result.value{
                 self.array = JSON as! NSMutableArray
+                
+            }
+        }
+    }
+    
+    
+    func parseUserInfo(notification:NSNotification){
+        
+        if let userInfo = notification.userInfo{
+            if let user = userInfo["user"] as? User{
+                self.user = user
+                self.greetingLabel.text = "Welcome back,\(self.user!.name)"
                 
             }
         }
